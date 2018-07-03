@@ -4,5 +4,5 @@
 
 module.exports = {
     'secrect': 'snailsph',
-    'database': 'mongodb://10.111.24.182:27017/keyworld'
+    'database': 'mongodb://localhost:27017/keyworld'
 };
