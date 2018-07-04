@@ -38,7 +38,13 @@ export const showModal = (visible) =>{
 export const getKeyWorldListAction = (params)=>{
     return async (dispatch) => {
         let data = await getKeyWorldList(params);
-        dispatch(getTodoList(data.keyWorldList,data.pageCount,data.page));
+        if(data.success){
+            dispatch(getTodoList(data.keyWorldList,data.pageCount,data.page));
+            return Promise.resolve(data);
+        }else{
+            return Promise.reject(data);
+        }
+        
     }
 }
 

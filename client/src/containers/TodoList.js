@@ -3,6 +3,7 @@ import React ,{Component} from 'react';
 import { Pagination } from 'antd';
 import {getKeyWorldListAction,getKeyWorldByNameAction} from '../actions'
 import TodoItem from './todoItem';
+import {Link} from 'react-router-dom';
 
 
 class TodoList extends Component {
@@ -33,7 +34,7 @@ class TodoList extends Component {
         let footer = null;
         if(this.props.todos && this.props.todos.length > 0){
             footer = <footer className="footer">
-            <Pagination defaultCurrent={1} total={this.props.pageCount} onChange={this.paginationChange}/></footer>;
+            <Pagination defaultCurrent={1} total={this.props.pageCount} onChange={this.paginationChange}/><button className="ant-pagination-item all-todos"><Link to="/all">全部</Link></button></footer>;
         }
         return (
             <section className="main">

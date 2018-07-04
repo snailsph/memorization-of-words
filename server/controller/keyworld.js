@@ -60,12 +60,18 @@ module.exports = {
     },
 
     async getKeyWorldList(ctx){
-        
-        let { pageSize=10,pageNum=1,chinaName=''} = ctx.request.body;
-        let reg = new RegExp(chinaName);
-        let count = await KeyWorld.find({chinaName:reg}).count();
-        let keyWorldList = await KeyWorld.find({chinaName:reg}).skip(pageSize * (pageNum-1)).limit(pageSize).sort({'_id':-1})
-        .exec();
+        let { pageSize=10,pageNum=1,chinaName='',type} = ctx.request.body;
+        let keyWorldList = [];
+        let count = 0;
+        if(type && type === 'all'){
+            count = await KeyWorld.find().count();
+            keyWorldList = await KeyWorld.find();
+        }else{
+            let reg = new RegExp(chinaName);
+            count = await KeyWorld.find({chinaName:reg}).count();
+            keyWorldList = await KeyWorld.find({chinaName:reg}).skip(pageSize * (pageNum-1)).limit(pageSize).sort({'_id':-1})
+            .exec();
+        }
         if(keyWorldList){
             ctx.body = {
                 success: true,

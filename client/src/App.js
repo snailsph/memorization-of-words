@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import './App.css';
-import Mao from './components/mao';
-import Mao1 from './components/mao1';
-import AddTodo from './containers/AddTodo';
-import TodoList from './containers/TodoList';
+import { HashRouter as Router, Route } from "react-router-dom";
+import Home from './components/home';
+import KeyWorldList from './components/KeyWorldList';
+import { connect} from 'react-redux';
 
 class App extends Component {
   constructor(props){
@@ -13,8 +13,8 @@ class App extends Component {
   }
   //背景效果
   componentDidMount() {
-    this.drawCanvas();
-    window.addEventListener('resize', this.onWindowResize);
+    // this.drawCanvas();
+    // window.addEventListener('resize', this.onWindowResize);
     // this.props.getTodoList();//初始化数据
   }
   //画背景
@@ -46,19 +46,16 @@ class App extends Component {
     }
   }
   render() {
-    let arr = [0,1];
-    let text = arr[Math.floor(Math.random()*arr.length)];
-    let mao = text === 0 ? <Mao/> : <Mao1 />;
+  
     return (
       <div className="main-container">
-      <canvas id="q" className="bg-canvas"></canvas>
-        <div className="root">
-          {mao}
-          <div className="todoapp">
-            <AddTodo />
-            <TodoList/>
+        {/* <canvas id="q" className="bg-canvas"></canvas> */}
+        <Router>
+          <div>
+            <Route exact path="/" component={Home}/>
+            <Route path='/all' component={KeyWorldList}/>
           </div>
-        </div>
+        </Router>
       </div>
     );
   }
@@ -70,4 +67,4 @@ class App extends Component {
  
 }
 
-export default App;
+export default connect()(App);
